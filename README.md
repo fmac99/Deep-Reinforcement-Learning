@@ -61,3 +61,14 @@ To use these files you simply need download the DuelingDQN.py, DQNAgent.py and t
 
 # Future Work Ideas
 To improve a DQN agent like this one I want work on and explore implenting double dqn and prioritized experience replay as well. Doulbe DQN makes it so the agent does not make over-confident value estimates and prioritized experience replay helps the agent rank experiences and make better calls on which ones to replay more frequently. Both improve performance and can be used synergistically with a Dueling Network Architecture.
+
+
+# References For this problem:
+
+Udacity and code/teaching provided in the deep reinforcement nanodegree program
+
+"Dueling Network Architecures for Deep Reinforecment Learning" - GoogleDeepMind paper arXiv:1511.06581v3 [cs.LG] April 5 2016- Ziyu Wang, Tom Schual, Matteo Hessel, Hado van Hasselt, Marc Lanctot, Nando de Freitas
+
+"Deep Reinforcement Learning with Double Q Learning" GoogleDeepMind paper arXiv:1509.06461v3 [cs.LG] Dec 8 2015- Hado van Hasselt, Arthur Guez and David Silver
+
+"Prioritized Experience Replay" GoogleDeepMind pater- arXiv:1511.05952v4 [cs.LG] Feb 25 2016 - Tom Schaul, John Quan, Ioannis Antonoglou, and David Silver
