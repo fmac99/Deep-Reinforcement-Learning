@@ -51,7 +51,7 @@ Advantage Stream- 2 fully connected layers, 64 unit inputs, final output action 
 
 Value Stream- 2 fully connected layers, 64 unit inputs, final output of 1
 
-All uses Relu activation
+All use Relu activation
 
 Network Output = Val + Adv - mean(Adv) 
 
