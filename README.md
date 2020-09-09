@@ -36,7 +36,7 @@ Epsilon Decay = .995
 Epsilon End = .01
 
 Network Architecture:
-2 Fully Connected Layers- 1 input, 1 hidden, 64 units each
+2 Fully Connected Layers- 1 input, 1 hidden, 64 units each "\n"
 Advantage Stream- 2 fully connected layers, 64 unit inputs, final output action space size
 Value Stream- 2 fully connected layers, 64 unit inputs, final output of 1
 All uses Relu activation
