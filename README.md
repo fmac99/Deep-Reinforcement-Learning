@@ -25,7 +25,7 @@ In Deep Reinforement Learning the Dueling Network Architecture refers to a neura
 
 Hyperparameters used:
 
-BUFFER_SIZE =  int(1e5)
+BUFFER_SIZE =  int(1e5)\n
 BATCH_SIZE = 32
 LR = 5e-4
 UPDATE_EVERY = 4
