@@ -25,21 +25,34 @@ In Deep Reinforement Learning the Dueling Network Architecture refers to a neura
 
 Hyperparameters used:
 
-BUFFER_SIZE =  int(1e5)\n
+BUFFER_SIZE =  int(1e5)
+
 BATCH_SIZE = 32
+
 LR = 5e-4
+
 UPDATE_EVERY = 4
+
 GAMMA = .99
+
 TAU = 1e-3
+
 Epsilon Start = 1.0
+
 Epsilon Decay = .995
+
 Epsilon End = .01
 
 Network Architecture:
-2 Fully Connected Layers- 1 input, 1 hidden, 64 units each "\n"
+
+2 Fully Connected Layers- 1 input, 1 hidden, 64 units each 
+
 Advantage Stream- 2 fully connected layers, 64 unit inputs, final output action space size
+
 Value Stream- 2 fully connected layers, 64 unit inputs, final output of 1
+
 All uses Relu activation
+
 Network Output = Val + Adv - mean(Adv) 
 
 # How To Use the Dueling Implementation
