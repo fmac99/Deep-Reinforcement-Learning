@@ -14,7 +14,7 @@ import torch.optim as optim
 
 
 BUFFER_SIZE =  int(1e5)
-BATCH_SIZE = 64
+BATCH_SIZE = 32
 LR = 5e-4
 UPDATE_EVERY = 4
 GAMMA = .99
