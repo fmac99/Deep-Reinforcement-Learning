@@ -72,3 +72,5 @@ Udacity and code/teaching provided in the deep reinforcement nanodegree program
 "Deep Reinforcement Learning with Double Q Learning" GoogleDeepMind paper arXiv:1509.06461v3 [cs.LG] Dec 8 2015- Hado van Hasselt, Arthur Guez and David Silver
 
 "Prioritized Experience Replay" GoogleDeepMind pater- arXiv:1511.05952v4 [cs.LG] Feb 25 2016 - Tom Schaul, John Quan, Ioannis Antonoglou, and David Silver
+
+dxyang/DQN_Pytorch for ideas about dueling network architecture, check out his github repo!
