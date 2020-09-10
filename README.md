@@ -64,7 +64,9 @@ The above link will show you in detail how to setup your python virtual environm
 
 # Dependencies
 Python 3.6 or greater
+
 Pytorch 0.4.0
+
 Open AI Gym -0.17.2
 
 That will get you started with the python enviroment. Here is a link on installing the project enviroment for the agent to work in. 
