@@ -55,6 +55,25 @@ All use Relu activation
 
 Network Output = Val + Adv - mean(Adv) 
 
+# Getting Started with this enviroment and problem
+
+For those of you interested in doing this work or running this code yourself you will need the following things downloaded to enable you to work in the environment. Note these instructions are based on those given in Udacity's Deep Reinforcement Learning Nanodegree. Detailed instructions can be found to setup the python enviroment @ this link
+
+DRLND ENV -[https://github.com/udacity/deep-reinforcement-learning]
+The above link will show you in detail how to setup your python virtual environment, tell the dependencies needed for runnign the code and how to download clone any of the need repositiories/code that will be requried. For those of you how know how to make a virtual enviroment on their cpu and use pip to download python repositories here is a list of dependencies needed in your venv:
+
+# Dependencies
+Python 3.6 or greater
+Pytorch 0.4.0
+Open AI Gym -0.17.2
+
+That will get you started with the python enviroment. Here is a link on installing the project enviroment for the agent to work in. 
+
+Unity Enviroment for Navigation Project- [https://github.com/udacity/deep-reinforcement-learning/tree/master/p1_navigation]
+
+This will get you the banana collection enviroment I used to train the agent in the code. Once you have created your enviroment the only augementation you will need to do to the code in this repository to make it run is to enter in the file path for the Unity enviroment on your cpu.
+
+
 # How To Use the Dueling Implementation
 To use these files you simply need download the DuelingDQN.py, DQNAgent.py and the UdacityProject1-Navigation.ipynb file and have them in a venv or repository where the ipynb file can access the other two.If you want to use the Unity environment you will need to download that seperately. You can also use a gym enviroment you will just need to adjust the envirionment related code in the ipynb file to match your enviroment. You can make tweaks to the neural net in the  DuelingDQN.py file by chaning units, adding or changing layers. Since this enviroment was based on a matrix of state representations conv nets were not required. If you were going to do this with the pixels you would need to add conv nets would need to replace the fully connected linear layers before the split. If you want to change the Agent or any of the hyperparmeters those are all located in the DQNAgent.py file. All settings in each file are the ones that worked for me to get the results I have. To train the agent in the unity enviroment(once you have it downloaded) you will simply need to execute the code in the ipynb file.  I have also saved a check point if you want to see it work in this specific unity enviroment. Make sure that train mode is = True when training and False when testing.
 
