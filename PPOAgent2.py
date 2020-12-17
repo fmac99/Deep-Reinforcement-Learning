@@ -126,7 +126,8 @@ class PPO_Agent():
         
     def MakeMinibatch(self,states,values,value_est,probs,advs,tmax,mini_batch):
         batch_dict = {}
-        rand_rows= np.random.randint(tmax-1, size=mini_batch)
+        rand_rows= np.random.randint(tmax, size=mini_batch)
+        values = values[:-1]
         batch_dict = {
             
             "states":torch.from_numpy(np.vstack([states[r] for r in rand_rows])),
