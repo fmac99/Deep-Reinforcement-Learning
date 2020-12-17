@@ -65,35 +65,34 @@ class PPO_Agent():
             target_param.data.copy_(local_param.data)
         
         
-   
     def Advantage_Estimation(self,values, rewards,gamma,lambduh, tmax):
+        values.append(torch.zeros(20,1))
         delta_list=[]
         lg = (gamma*lambduh)**np.arange(len(rewards))
         l = lg[::-1]
-        ten=torch.tensor(l.copy(),dtype=torch.float)[0:tmax-1].reshape(tmax-1,1)
+        ten=torch.tensor(l.copy(),dtype=torch.float).reshape(tmax,1)
         for t in range(tmax):
-            if t < tmax-1:
-                k = t+1
-                delta= -values[t]+values[k]*gamma+torch.tensor(rewards[t],dtype=torch.float).reshape(20,1)
-                delta_list.append(delta)
+            k = t+1
+            delta= -values[t]+values[k]*gamma+torch.tensor(rewards[t],dtype=torch.float).reshape(20,1)
+            delta_list.append(delta)
+                
+        delta_list = delta_list[::-1]
 
         tensor_list=[]
         for t in range(len(delta_list)):
             tensor_list.append(delta_list[t].squeeze())
-
-        deltas=torch.cat(tensor_list).reshape(tmax-1,20)
+        
+        deltas=torch.cat(tensor_list).reshape(tmax,20)
         Advantage_List = []
         for x in range(len(deltas)):
             Advantage_List.append((deltas[0:len(deltas)-x]*ten[x:len(deltas)]).sum(dim=0))
 
         advantages=torch.cat(Advantage_List)
-        advantages = advantages.reshape(tmax-1,20)
+        advantages = advantages.reshape(tmax,20)
  
-        Normalized_Advan=(advantages -advantages.mean())/advantages.std()
+        Normalized_Advan=(advantages -advantages.mean(dim=0))/(advantages.std(dim=0)+1e-10)
         return Normalized_Advan
-#        mean=torch.mean(advs,dim=1)
-#        std=torch.std(advs,dim=1)
-#        normalized_advs = (advan -torch.mean(advan,dim=1)[:,np.newaxis] )/torch.std(advan,dim=1)[:,np.newaxis] 
+
 
     
                                                               
