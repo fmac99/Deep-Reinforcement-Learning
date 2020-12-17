@@ -66,14 +66,14 @@ class PPO_Agent():
         
         
     def Advantage_Estimation(self,values, rewards,gamma,lambduh, tmax):
-        values.append(torch.zeros(20,1))
+        values.append(torch.zeros(self.n_actors,1))
         delta_list=[]
         lg = (gamma*lambduh)**np.arange(len(rewards))
         l = lg[::-1]
         ten=torch.tensor(l.copy(),dtype=torch.float).reshape(tmax,1)
         for t in range(tmax):
             k = t+1
-            delta= -values[t]+values[k]*gamma+torch.tensor(rewards[t],dtype=torch.float).reshape(20,1)
+            delta= -values[t]+values[k]*gamma+torch.tensor(rewards[t],dtype=torch.float).reshape(self.n_actors,1)
             delta_list.append(delta)
                 
         delta_list = delta_list[::-1]
@@ -82,13 +82,13 @@ class PPO_Agent():
         for t in range(len(delta_list)):
             tensor_list.append(delta_list[t].squeeze())
         
-        deltas=torch.cat(tensor_list).reshape(tmax,20)
+        deltas=torch.cat(tensor_list).reshape(tmax,self.n_actors)
         Advantage_List = []
         for x in range(len(deltas)):
             Advantage_List.append((deltas[0:len(deltas)-x]*ten[x:len(deltas)]).sum(dim=0))
 
         advantages=torch.cat(Advantage_List)
-        advantages = advantages.reshape(tmax,20)
+        advantages = advantages.reshape(tmax,self.n_actors)
  
         Normalized_Advan=(advantages -advantages.mean(dim=0))/(advantages.std(dim=0)+1e-10)
         return Normalized_Advan
@@ -96,19 +96,35 @@ class PPO_Agent():
 
     
                                                               
-    def Value_Estimation(self,rewards, gamma):
-        value_list = []
-        disco = gamma**np.arange(len(rewards))[:,np.newaxis]
+     def Value_Estimation(self,rewards, gamma,values):
+        vals = []
+        for v in range(len(values)):
+            vals.append(values[v].squeeze())
+        vals =vals[::-1]
+        vals = torch.cat(vals).reshape(len(rewards),20)
+        rewards_list = []
+        disco = gamma**np.arange(len(rewards))
+        disco = disco[::-1]
+        disco1=disco[:,np.newaxis]
+        dt = torch.tensor(disco.copy(),dtype=torch.float).reshape(len(rewards),1)
+        rewards = rewards[::-1]
         for r in range(len(rewards)):
-            value_list.append((rewards[0:len(rewards)-r]*disco[r:len(rewards)]).sum(axis=0))
+            rewards_list.append((rewards[0:len(rewards)-r]*disco1[r:len(rewards)]).sum(axis=0))
+        returns=[]
+        res=torch.tensor(rewards,dtype=torch.float)
+        for h in range(len(vals)):
+            returns.append(((vals[0:len(vals)-h]+res[0:len(rewards)-h])*dt[h:len(rewards)]).sum(dim=0).squeeze())
 
-        return torch.tensor(value_list,dtype=torch.float)
 
+        rewds = torch.tensor(rewards_list,dtype=torch.float)
+        rets = torch.cat(returns).reshape(len(rewards),20)
+        return rets
+ 
     def Learn(self,states,value_targets,value_estimate,probs,advs,epsilon,Minb):
         
-        value_target =value_targets.reshape(Minb,20)
-        value_estimate = value_estimate.reshape(Minb,20)
-        advs = advs.reshape(Minb,20)
+        value_target =value_targets.reshape(Minb,self.n_actors)
+        value_estimate = value_estimate.reshape(Minb,self.n_actors)
+        advs = advs.reshape(Minb,self.n_actors)
         value_target=Variable(value_target+advs, requires_grad = True)
         value_estimate=Variable(value_estimate, requires_grad = True)
         Value_Loss = F.mse_loss(value_target, value_estimate)    
@@ -131,8 +147,8 @@ class PPO_Agent():
         batch_dict = {
             
             "states":torch.from_numpy(np.vstack([states[r] for r in rand_rows])),
-            "values":torch.from_numpy(np.vstack([values[r].detach().numpy() for r in rand_rows])),
-            "value_est":torch.from_numpy(np.vstack([value_est[r] for r in rand_rows])),
+            "values":torch.from_numpy(np.vstack([values[r].detach().numpy() for r in rand_rows])).reshape(mini_batch,self.n_actors),
+            "value_est":torch.from_numpy(np.vstack([value_est[r].detach().numpy() for r in rand_rows])),
             "probs":torch.from_numpy(np.vstack([probs[r].detach().numpy() for r in rand_rows])),
             "advs":torch.from_numpy(np.vstack([advs[r] for r in rand_rows])),
 #            "returns":torch.from_numpy(np.vstack([returns[r] for r in rand_rows]))
