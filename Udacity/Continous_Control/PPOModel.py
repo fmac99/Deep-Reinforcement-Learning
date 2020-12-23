@@ -4,13 +4,15 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.distributions import Normal
 
+#Layer Initialization Function from @https://github.com/SimonBirrell/ppo-continuous-control
 def layer_init(layer, w_scale=1.0):
     nn.init.orthogonal_(layer.weight.data)
     layer.weight.data.mul_(w_scale)
     nn.init.constant_(layer.bias.data, 0)
     return layer
         
-
+#Policy Net, Output = Mean and STD for Action Sampling Distribution
+# Check out https://github.com/ShangtongZhang/DeepRL for a more in depth implementation
 class Policy(nn.Module):
     def __init__(self,action_size,state_size,seed):
         super(Policy,self).__init__()
@@ -29,6 +31,7 @@ class Policy(nn.Module):
         dist = Normal(mean,F.softplus(self.std))
         return dist
 
+#Value Net for Critic
 class Value(nn.Module):
     def __init__(self,state_size, seed):
         super(Value,self).__init__()
