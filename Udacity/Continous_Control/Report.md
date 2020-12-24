@@ -67,6 +67,20 @@ Below is the plot of rewards. It took my agent 900 episodes to get 30+ for 100 e
 <img src="https://github.com/fmac99/Deep-Reinforcement-Learning/blob/master/Udacity/Continous_Control/Solution.png">
 </p>
 
+#### Hyperparameters
+
+GAMMA = .99
+LAMBDA = .95
+Epsilon = 0.1
+#Beta = .02
+TMAX=1000
+MINI_BATCH = 250
+BATCH_SIZE  = 1000
+iterations=10
+Episodes =10000
+LR_Policy = 3e-4
+LR_Value = 3e-4
+Adam epsilon for the policy net = eps=1e-5
 
 #### Future Improvements
 
