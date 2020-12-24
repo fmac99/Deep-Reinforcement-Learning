@@ -42,13 +42,32 @@ Output_Size: value- 1/agent
 Total 3 fully connected Linear layers
 all using a relu activation function except for the output layer
 
-#### Advantage Estimation
+#### Advantage Estimation 
 
-I would reference the Advantage Estimation paper for more details( in readme) but the function itself is as follows:
-GAE= Generalized Advantage Estimation
-GAE= Sum((Lambda*Gamma)**l*Delta_V_l+t) 
-Lambda= .95 in my implementation, it is a discounting factor that helps reduce variance
-Gamma = .99 in my implementation it is the discounting factor for each rewards and deltas which is 
+I would reference the Advantage Estimation paper for more details( in readme) but the function itself is as follows(both snippets are from that paper,https://arxiv.org/pdf/1506.02438.pdf):
+#### Delta Function:
+<p>
+  <img src= "https://github.com/fmac99/Deep-Reinforcement-Learning/blob/master/DeltaPic.png">
+</p>
+<p>
+<img src ="https://github.com/fmac99/Deep-Reinforcement-Learning/blob/master/GAEPic.png">
+</p>
+GAE is what I used for my advantage and I normalized them across all agents and advantages. 
+
+
+#### Batching, Time Horizons, and Optimization epochs
+
+Many implementations used what they called a rollout. That references the the horizon for n-step bootsrapping. I used the term batch size and made it equivalent to the time horizon I called tmax. I selected 1000 for tmax in this instance because that is the max number of timesteps for the env. I also had a minibatch for learning steps that was 250 time steps in length. That creates 4 learning batches. Many other implementations had more batches. Remember that in my implementation is 250 timesteps of 20 agents so it is infact 5000 total time steps of data. I used an optimization epoch number of 10 which I call iterations in my Jupyter Notebook. That just reuses trajectories so you don't have to sample all new ones everytime an optimization step is run.
+
+#### Reward Plotting
+
+Below is the plot of rewards. It took my agent 900 episodes to get 30+ for 100 episodes.
+
 <p>
 <img src="https://github.com/fmac99/Deep-Reinforcement-Learning/blob/master/Udacity/Continous_Control/Solution.png">
 </p>
+
+
+#### Future Improvements
+
+In the future I would do more testing with the batch and minibatch sizes as well as trying a combined neural network. I saw some implementations that had a combined neural network that achieved convergence in less than 200 episodes. I think having smaller mini batches would help by increasing the number of optimization steps.
