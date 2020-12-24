@@ -27,19 +27,28 @@ I used and A2C setup for this with initalized with contant values and an orthogo
 The neural network for the policy(actor) outputs the mean and standard deviation for the action of the agents and then those are fed into the normal distribution. From there the distribution is sampled for actions, log probabilities and entropy. With pytorch's Normal function all of this is nicely handled and I would highly recommend using that as opposed to writing it yourself. I also made sure to clip those outputs between -1 and 1 in the event they were greater or less than those values. The network architecture is as follows:
 
 Input_Size: state_size=33/agent
+
 Hidden_Units: 30 unit fully connected linear layer
+
 Output_Size: action_size- 4/agent
+
 Total 3 fully connected Linear layers
+
 All using a tanh activation function
+
 A separate paramater is used for the standard deviation which is initalized as 0 for each agent.
 
 ##### Value(Critic)
 The neural network for the value(critic) outputs a single value for the state value function. This is a value assigned to the states which measures how good a state is. In this case it is very fitting since we are looking to be in the "reward region" for the arm. 
 
 Input_Size: state_size=33/agent
+
 Hidden_Units: 30 unit fully connected linear layer
+
 Output_Size: value- 1/agent
+
 Total 3 fully connected Linear layers
+
 all using a relu activation function except for the output layer
 
 #### Advantage Estimation 
