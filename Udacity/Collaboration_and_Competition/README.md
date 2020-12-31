@@ -56,3 +56,6 @@ Udacity and code/teaching provided in the deep reinforcement nanodegree program
 
 "Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments" Ryan Lowe, Yi Wu, Aviv Tamar, Jean Harb, Pieter Abbeel, Igor Mordatch-[https://arxiv.org/abs/1706.02275]
 
+
+"On the Convergence of Adam and Beyond" Sashank J. Reddi, Satyen Kale, Sanjiv Kumar-[https://openreview.net/forum?id=ryQu7f-RZ]
+
