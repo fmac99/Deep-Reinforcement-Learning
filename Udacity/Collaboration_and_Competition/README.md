@@ -53,3 +53,6 @@ Udacity and code/teaching provided in the deep reinforcement nanodegree program
 
 "On-Policy Trust Region Policy Optimisation with Replay Buffers" Dmitry Kangin, Nicolas Pugeault -[https://arxiv.org/abs/1901.06212]
 
+
+"Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments" Ryan Lowe, Yi Wu, Aviv Tamar, Jean Harb, Pieter Abbeel, Igor Mordatch-[https://arxiv.org/abs/1706.02275]
+
