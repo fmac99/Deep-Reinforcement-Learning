@@ -88,7 +88,7 @@ class PPO_Agent():
         return Normalized_Advan
 
     #Calculate Discounted Rewards as an estimate for the Value Function
-    def Value_Estimation(self,rewards, gamma,values):
+    def value_Estimation(self,rewards, gamma,values):
         vals = []
         for v in range(len(values)):
             vals.append(values[v].squeeze())
@@ -108,7 +108,7 @@ class PPO_Agent():
         return rewds
         
     # Learn Step using Clipped Surrogate Function for Policy and MSE Loss for Value
-    def Learn(self,states,value_estimate,probs,advs,actions,epsilon,Minb):
+    def learn(self,states,value_estimate,probs,advs,actions,epsilon,Minb):
         
         value_target =self.value_target.forward(torch.tensor(states,dtype=torch.float)).reshape(Minb,self.n_actors)
         value_estimate = value_estimate.reshape(Minb,self.n_actors)
@@ -127,7 +127,7 @@ class PPO_Agent():
         self.policy_optim.step()
         
     # Make MiniBatches from Collected Trajectories
-    def MakeMinibatch(self,states,value_est,probs,advs,actions,tmax,mini_batch):
+    def make_mini_batch(self,states,value_est,probs,advs,actions,tmax,mini_batch):
         batch_dict = {}
         rand_rows= np.random.randint(tmax, size=mini_batch)
         batch_dict = {

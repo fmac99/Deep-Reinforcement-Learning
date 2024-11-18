@@ -14,7 +14,7 @@ LR_POLICY = 3e-4         # learning rate of the actor
 LR_VALUE = 1e-6      # learning rate of the critic
 WEIGHT_DECAY = 0.0       # L2 weight decay
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("xpu:0" if torch.cuda.is_available() else "cpu")
 
 
 class PPO_Agent():
