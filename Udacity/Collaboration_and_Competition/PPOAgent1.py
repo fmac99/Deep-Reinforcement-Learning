@@ -30,6 +30,7 @@ class PPO_Agent():
         self.tmax = tmax
         self.opt_epochs = opt_epochs
         self.epsilon = epsilon
+        self.csf_beta = .02
         
         self.policy_net = Policy(action_size,state_size, random_seed).to(device)
         self.policy_optim = optim.Adam(self.policy_net.parameters(),lr = LR_POLICY,eps=1e-4,amsgrad=True)
@@ -51,7 +52,7 @@ class PPO_Agent():
         dist = self.policy_net.forward(states)
         new_probs = dist.log_prob(actions).sum(dim=2)
         entropy = dist.entropy()
-        beta = .02
+        beta = self.csf_beta
         prob_ratio = (new_probs-probs).exp()
         S1 =advantages.reshape(Minb,self.n_actors)*prob_ratio
         S2 = advantages.reshape(Minb,self.n_actors)*torch.clamp(prob_ratio,1-epsilon,1+epsilon)
@@ -100,7 +101,7 @@ class PPO_Agent():
         disco = gamma**np.arange(len(rewards))
         disco = disco[::-1]
         disco = disco.reshape(len(rewards),1)
-        dt = torch.tensor(disco.copy(),dtype=torch.float).reshape(len(rewards),1)
+        #dt = torch.tensor(disco.copy(),dtype=torch.float).reshape(len(rewards),1)
         rewards = rewards[::-1]
         for r in range(len(rewards)):
             rewards_list.append((rewards[0:len(rewards)-r]*disco[r:len(rewards)]).sum(axis=0))
